@@ -16,6 +16,7 @@ I developed it to learn more about interpreters.
 ### What AttoScheme can do and what cannot
 
 ### Project structure
+```
 .
 ├── bin
 │   ├── dune
@@ -29,3 +30,4 @@ I developed it to learn more about interpreters.
 └── test
     ├── dune
     └── testing.ml
+```
