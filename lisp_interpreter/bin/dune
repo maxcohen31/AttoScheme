@@ -1,0 +1,4 @@
+(executable
+ (public_name lisp_interpreter)
+ (name main)
+ (libraries base stdio re lisp_interpreter))

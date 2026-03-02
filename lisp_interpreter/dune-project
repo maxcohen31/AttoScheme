@@ -1,0 +1,22 @@
+(lang dune 3.20)
+
+(name lisp_interpreter)
+
+(generate_opam_files true)
+
+(source
+ (github maxcohen31/AttoScheme))
+
+(authors "Abbate Emanuele <led93@protonmail.com>")
+
+(maintainers "Maintainer Abbate Emanuele <led93@protonmail.com>")
+
+(license MIT)
+
+(documentation https://github.com/maxcohen31/AttoScheme)
+
+(package
+ (name lisp_interpreter)
+ (synopsis "An atto-subset of the Scheme programming language")
+ (depends ocaml))
+
