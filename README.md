@@ -25,6 +25,8 @@ AttoScheme is designed as a learning tool to help understand how interpreters wo
 AttoScheme was developed as a personal project to explore the implementation of interpreters in OCaml. It is not intended as a production-ready interpreter.
 
 ### How to Use
+Make sure to have [Opam](https://opam.ocaml.org/doc/Install.html) and [Dune](https://dune.build/install) installed.
+
 Clone the repository.
 
 From the project root directory, run:
@@ -32,6 +34,11 @@ From the project root directory, run:
 ```bash
 dune build
 dune exec _build/default/bin/main.exe
+```
+
+Test:
+```
+dune runtest
 ```
 
 Make sure to have [Opam](https://opam.ocaml.org/doc/Install.html) and [Dune](https://dune.build/install) installed.
@@ -82,7 +89,7 @@ AttoScheme is still a work in progress. Any contribution to it will be very much
 What AttoScheme lacks right now:
 - Closures
 - Lambda expressions
-- Define variables
+- Define 
 - Pairs
 
 ### License
