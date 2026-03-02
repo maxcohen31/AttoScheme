@@ -4,4 +4,6 @@
   <img src="Lisp_logo.png" />
 </p>
 
-<h2 style="text-align:center;">"An atto-subset of the Scheme programming language"</h2> 
+<div style="text-align: center;">
+  <b><i>This text is centered, bold, and italic</i></b>
+</div>   
