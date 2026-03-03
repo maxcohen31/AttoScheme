@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  "<i>An atto-subset interpreter for the Scheme programming language</i>"
+  "<i>An atto-subset for the Scheme programming language</i>"
 </p>
 
 ### What is AttoScheme?
