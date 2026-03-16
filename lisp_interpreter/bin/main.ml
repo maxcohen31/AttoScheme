@@ -27,7 +27,7 @@ let repl () =
       match line with
       | None -> exit 0
       | Some l -> 
-          let sexp = eval (parser l) in 
+          let sexp = eval env (parser l) in 
             pp_res sexp 
   done;;
 
