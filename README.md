@@ -19,7 +19,7 @@ AttoScheme is designed as a learning tool to help understand how interpreters wo
 - Evaluate basic arithmetic and logical expressions
 - Supports lists, symbols, and standard Scheme data types
 - Simple REPL (Read-Eval-Print Loop)
-  Note: lambda, closures, define, and other advanced Scheme features are not yet supported.
+  Note: lambda, closures, and other advanced Scheme features are not yet supported.
 
 ### Project Overview
 AttoScheme was developed as a personal project to explore the implementation of interpreters in OCaml. It is not intended as a production-ready interpreter.
@@ -89,7 +89,6 @@ AttoScheme is still a work in progress. Any contribution to it will be very much
 What AttoScheme lacks right now:
 - Closures
 - Lambda expressions
-- Define 
 - Pairs
 
 ### License
