@@ -38,7 +38,6 @@ let rec eval env sexpr =
   | Atom (Boolean _) as b -> b
   | Atom (Number _) as n -> n
   | Atom (String _) as s -> s 
-  (* TODO: To change if an environment is implemented *)
   | Atom (Symbol s) -> 
       (match Hashtbl.find env s with 
        | Some v -> v
