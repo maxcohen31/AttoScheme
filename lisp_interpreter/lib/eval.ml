@@ -24,15 +24,25 @@ exception XorError of string
 exception BitwiseNotError of string
 
 
+(* ******** Environment ******** *)
+
+let env: (string, sexpr) Hashtbl.t = Hashtbl.create (module String)
+
+let add_env env name x = 
+  Hashtbl.set env ~key:name ~data:x ;;
+
 (*********** Eval function ************)
-let rec eval sexpr = 
+let rec eval env sexpr = 
   match sexpr with
   (* Atom evaluates in itself *)
   | Atom (Boolean _) as b -> b
   | Atom (Number _) as n -> n
   | Atom (String _) as s -> s 
   (* TODO: To change if an environment is implemented *)
-  | Atom (Symbol _) as sym -> sym 
+  | Atom (Symbol s) -> 
+      (match Hashtbl.find env s with 
+       | Some v -> v
+       | None -> Atom (Symbol s))
 
   (* ***** Empty list ***** *)
   | List [] -> List []
@@ -42,26 +52,32 @@ let rec eval sexpr =
 
   (* ***** IF statement ****** *)
   | List [Atom (Symbol "if"); exp; if_then; if_else] ->
-      let e = eval exp in 
+      let e = eval env exp in 
       (match e with
-       | Atom (Boolean false)-> eval if_else
-       | _ -> eval if_then)
+       | Atom (Boolean false)-> eval env if_else
+       | _ -> eval env if_then)
   
   (* ***** Logical connectives ***** *)
   | List [Atom (Symbol "and"); e1; e2] ->
-    (match eval e1 with
+    (match eval env e1 with
      | Atom (Boolean false) -> Atom (Boolean false)
-     | _ -> eval e2)
+     | _ -> eval env e2)
 
   | List [Atom (Symbol "or"); e1; e2] ->
-      (match eval e1 with
-      | Atom (Boolean false) -> eval e2
+      (match eval env e1 with
+      | Atom (Boolean false) -> eval env e2
       | v -> v)
+
+  (* ***** Define ***** *)
+  | List [Atom (Symbol "define"); Atom (Symbol name); expr] ->
+      let v = eval env expr in
+        add_env env name v;
+        Atom (Symbol name)
 
   (* ***** Apply function ***** *)
   | List (f :: args) -> 
-      let fn = eval f in 
-       let rest = List.map args ~f:eval in 
+      let fn = eval env f in 
+       let rest = List.map args ~f:(eval env) in 
          apply fn rest 
   | _ -> raise (RuntimeError "Invalid expression") 
   
@@ -139,17 +155,17 @@ and
          | _ -> raise (LogicalError "Operand for 'not' must be boolean"))
 
     (* ***** Bitwise operations ***** *) 
-    | Atom (Symbol "bit-and"), [x; y] -> 
+    | Atom (Symbol "bitand"), [x; y] -> 
         (match x, y with
          | Atom (Number n1), Atom (Number n2) -> 
              Atom (Number (n1 land n2))
          | _ -> raise (AndError "AND invalid types"))
-    | Atom (Symbol "bit-or"), [x; y] -> 
+    | Atom (Symbol "bitor"), [x; y] -> 
         (match x, y with
          | Atom (Number n1), Atom (Number n2) -> 
              Atom (Number (n1 lor n2))
          | _ -> raise (OrError "OR invalid types"))
-    | Atom (Symbol "bit-xor"), [x; y] -> 
+    | Atom (Symbol "bitxor"), [x; y] -> 
         (match x, y with
          | Atom (Number n1), Atom (Number n2) -> 
              Atom (Number (n1 lxor n2))
